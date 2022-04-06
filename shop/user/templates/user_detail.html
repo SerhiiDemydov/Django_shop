@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.name }}{% endblock %}
+
+{% block content %}
+
+<main>
+<h1>{{ user }}</h1>
+
+  <p><strong>Имя:</strong> {{ user.first_name }} </p>
+  <p><strong>Фамилия:</strong> {{ user.second_name }}</p>
+  <p><strong>Почта:</strong> {{ user.email }}</p>
+  <p>
+      <div class="btn-group">
+          <form action="{% url 'user:update-user' pk=user.id %}"method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ user.id }}">Оновити</button>
+          </form>
+      </div>
+  </p>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Головна{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                {% if user.is_authenticated %}
+                <h1 class="fw-light">Welcome, {{ user }}</h1>
+                {% else %}
+                <h1 class="fw-light">Album example</h1>
+                {% endif %}
+                <p class="lead text-muted">Something short and leading about the collection below—its contents, the
+                    creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it
+                    entirely.</p>
+                <p>
+                    <a href="./admin" class="btn btn-primary my-2">Admin panel</a>
+                    <a href="./product/create" class="btn btn-secondary my-2">Додати гру</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'user:profile' pk=user.id %}" class="btn btn-secondary my-2">Мій аккаунт</a>
+                    <a href="./accounts/logout/" class="btn btn-secondary my-2">Вийти</a>
+                    {% else %}
+                    <a href="./accounts/login/" class="btn btn-secondary my-2">Увійті</a>
+                    <a href="{% url 'user:create-user' %}" class="btn btn-secondary my-2">Реєстрація</a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </section>
+    {% if product_list %}
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for product in product_list %}
+                <div class="col">
+                    <div class="card shadow-sm" >
+                        <img src="{{ product.image.url }}" alt="{{ product.image }}">
+                        <div class="card-body">
+                            <a class="card-text" href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p>{{ product.publishing_house }}</p>
+
+                                <small class="text-muted">9 mins</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <section class="text-center container">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous and page_obj.has_next %}
+                        <a href="?page=1">Firts</a>
+                        <a>...</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                        <a href="?page={{ page_obj.number }}"><strong>{{ page_obj.number }}</strong></a>
+                        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                        <a>...</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    {% endif %}
+
+                    {% if not page_obj.has_previous and page_obj.has_next %}
+                        <a href="?page={{ page_obj.number }}"><strong>{{ page_obj.number }}</strong></a>
+                        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                        <a>...</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    {% endif %}
+
+                    {% if page_obj.has_previous and not page_obj.has_next %}
+                        <a href="?page=1">Firts</a>
+                        <a>...</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                        <a href="?page={{ page_obj.number }}"><strong>{{ page_obj.number }}</strong></a>
+                    {% endif %}
+                </span>
+            </div>
+        </section>
+    </div>
+
+    {% else %}
+      <h1 class = "text-center fw-light">Ігор ще нема</h1>
+    {% endif %}
+</main>
+{% endblock %}
