@@ -4,6 +4,7 @@ RUN pip install --upgrade pip
 RUN pip install django
 RUN pip install django-debug-toolbar
 RUN python -m pip install Pillow
+RUN pip install gunicorn
 
 COPY . /app
 
@@ -11,6 +12,4 @@ WORKDIR /app
 
 RUN python manage.py makemigrations | python manage.py migrate
 
-EXPOSE 8000
 
-CMD python manage.py runserver 0:8000
