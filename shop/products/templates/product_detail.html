@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+<main>
+<h1>{{ product.name }}</h1>
+
+  <p><strong>Видання:</strong> {{ product.publishing_house }} </p>
+  <p><strong>Опис:</strong> {{ product.description }}</p>
+  <p><strong>Мова:</strong> {{ product.language }}</p>
+  <p><strong>Час гри:</strong> {{ product.time }}</p>
+  <p><strong>Кількість учасників:</strong> {{ product.min_players }}-{{ product.max_players }}</p>
+  <p><img src="{{ product.image.url}}" alt="connect" style="max-height:300px"></p>
+  <p>
+    {% if user.is_authenticated and product.publishing_house.owner.id == user.id %}
+      <div class="btn-group">
+          <form action="{% url 'products:product-update' slug=product.slug %}"method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-outline-secondary" value="{{ product.slug }}">Оновити</button>
+          </form>
+      </div>
+  {% endif %}
+  </p>
+</main>
+
+{% endblock %}
