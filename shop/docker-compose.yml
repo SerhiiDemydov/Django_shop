@@ -2,17 +2,21 @@ version: "3.3"
 
 services:
   web:
+    container_name: web
     build: .
-    command: gunicorn --bind 0.0.0.0:80  shop.wsgi
+    command: gunicorn --bind 0.0.0.0:8000  shop.wsgi:application
+    expose:
+      - 8000
+
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    #    image: nginx:latest
+#    volumes:
+#      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
     ports:
       - 80:80
 
-
-#  nginx:
-#    build: ./nginx
-#    depends_on:
-#      - web
-#    ports:
-#      - 80:80
-#    links:
-#      - web
