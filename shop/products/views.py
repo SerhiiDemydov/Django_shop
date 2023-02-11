@@ -19,7 +19,7 @@ def home_page(request):
 
 class ProductCreate(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['name', 'description', 'image', 'language', 'time', 'max_players', 'min_players', 'min_age_player', 'type']
+    fields = ['name', 'description', 'image', 'language', 'time', 'max_players', 'min_players', 'min_age_player', 'type', 'publishing_house']
     template_name = 'product_create_form.html'
 
     def form_valid(self, form):
