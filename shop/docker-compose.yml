@@ -28,7 +28,7 @@ services:
     depends_on:
       - web
     ports:
-      - 60:60
+      - 80:80
 
 volumes:
   postgres_data:
