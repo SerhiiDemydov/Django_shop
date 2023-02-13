@@ -7,7 +7,17 @@ services:
     command: gunicorn --bind 0.0.0.0:8000  shop.wsgi:application
     expose:
       - 8000
+    depends_on:
+      - db
 
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=django
+      - POSTGRES_DB=django_shop
 
   nginx:
     container_name: nginx
@@ -18,5 +28,7 @@ services:
     depends_on:
       - web
     ports:
-      - 80:80
+      - 60:60
 
+volumes:
+  postgres_data:
