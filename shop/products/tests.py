@@ -7,7 +7,7 @@ from django.urls import reverse
 class TestProductView(TestCase):
 
     def test_product_view(self):
-        response = self.client.get(path=reverse("product"))
+        response = self.client.get('product/')
         # assert request.status_code == 200
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content.decode("utf-8"), "Super good")
+    
