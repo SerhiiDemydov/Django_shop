@@ -29,8 +29,8 @@ services:
 #    volumes:
 #      - ./nginx:/etc/nginx/conf.d
     volumes:
-      - static:/static
-      - media:/media
+      - ./static:/static
+      - ./media:/media
     depends_on:
       - web
     ports:
@@ -38,5 +38,4 @@ services:
 
 volumes:
   postgres_data:
-  static:
-  media:
+
