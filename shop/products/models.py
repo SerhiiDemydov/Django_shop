@@ -12,7 +12,7 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     image = models.ImageField(
         upload_to='picture_game/',
-        default='../media/picture_game/png-transparent-yahtzee-starcraft-the-board-game-dixit-games-game-text-logo_ps91FUD.png',
+        default='../media/picture_game/png-transparent-yahtzee-starcraft-the-board-game-dixit-games-game-text-logo.png',
     )
     slug = models.SlugField(max_length=50)
 
