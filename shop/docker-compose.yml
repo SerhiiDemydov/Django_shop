@@ -6,8 +6,8 @@ services:
     build: .
     command: gunicorn --bind 0.0.0.0:8000  shop.wsgi:application
     volumes:
-      - /static/:/static/
-      - /media/:/media/
+      - static:/static
+      - media:/media
     expose:
       - 8000
     depends_on:
@@ -28,6 +28,9 @@ services:
     #    image: nginx:latest
 #    volumes:
 #      - ./nginx:/etc/nginx/conf.d
+    volumes:
+      - static:/static
+      - media:/media
     depends_on:
       - web
     ports:
